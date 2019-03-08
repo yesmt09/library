@@ -1,0 +1,45 @@
+<div class="container">
+	<div class="row">
+		<div class="col-lg-2">
+      {{>list-group}}
+		</div>
+		<div class="col-lg-10">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">当前借阅</h4>
+        </div>
+        <div class="panel-body">
+  				<!-- <h2 class="sub-header">Section title</h2> -->
+  				<div class="table-responsive">
+  					<table class="table table-condensed">
+  						<thead>
+                <tr>
+                  <th class="hide">ISBN</th>
+                  <th>书籍编号</th>
+                  <th>书名</th>
+                  <th>作者</th>
+                    <th>借阅到期时间</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+  						<tbody>
+                {{#each borrows}}
+                <tr>
+                  <td class="isbn hide">{{isbn}}</td>
+                  <td>{{callNumber}}</td>
+                  <td>{{title}}</td>
+                  <td>{{author}}</td>
+                   <td>{{expirationDate outdate}}</td>
+                  <td><button class="return btn btn-primary btn-sm">还书</button><!-- <button class="renew btn btn-sm">续借</button> --></td>
+                </tr>
+                {{/each}}
+  						</tbody>
+  					</table>
+  				</div>
+        </div>
+      </div>
+		</div>
+	</div>
+  {{>footer}}
+</div>
+

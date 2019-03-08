@@ -1,0 +1,67 @@
+<!-- body -->
+<div class='container'>
+    <div class="row">
+        <div class="col-md-10" role="main">
+          <div class="panel panel-default">
+            <div class=" panel-heading">
+                <h4 class="panel-title">馆藏书目检索 </h4>
+            </div>
+            <div class="panel-body">
+                <form action="/search" id="submit">
+                  <div class="col-lg-13 table-responsive">
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr>
+                          <th>书籍编号</th>
+                          <th style="display: none;">ISBN</th>
+                          <th>书名</th>
+                          <th>作者</th>
+                          <th>地区</th>
+                          <th>操作</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {{#each books}}
+                        <tr>
+                          <td>{{callNumber}}</td>
+                          <td class="isbn"  style="display: none;">{{isbn}}</td>
+                          <td>{{title}}</td>
+                          <td>{{author}}</td>
+                          <td>{{address}}</td>
+                          {{#compare status '==' 1}}
+                          <td><button type="button" onclick="borrow_book({{isbn}})" class="btn btn-info btn_borrow">借阅</button></td>
+                          {{else}}
+                              {{#compare status '==' 0}}
+                                <td><p class="text-error">暂停借阅</p></td>
+                              {{else}}
+                                  <td><p class="text-warning">{{type}}<br />借阅中 </p></td>
+                              {{/compare}}
+                          {{/compare}}
+                        </tr>
+                        {{/each}}
+                      </tbody>
+                    </table>
+                  </div>
+                </form>
+              </div><!-- /.row -->
+            </div>
+          </div>
+        <div class="col-md-2" role="complementary">
+            <ul class="nav nav-pills nav-stacked" id="notice-tip-button">
+                <li>
+                    <button type="button" onclick="$('#notice-tip').modal('show');" id="notice-tip-help-button" class="btn btn-default"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> 借阅说明</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script type="application/javascript">
+        $(document).ready(function(){
+            $("#notice-tip-button").affix({
+                offset: {
+                    top: 125
+                }
+            });
+        });
+    </script>
+  {{>footer}}
+</div>

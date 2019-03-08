@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{{title}}</title>
+
+	<!--############################################## -->
+	<!-- 通过handlebars的helper来实现css和js资源的加载。这种方式的优点是可以在需要资源的页面才加载所需的资源。可以参考这篇博客：http://www.cnblogs.com/qieguo/p/5811988.html -->
+  {{css "//static1.zuiyouxi.com/web/public/bootstrap-3.3.7-dist/css/bootstrap.min.css"}}
+  {{css "/stylesheets/dataTables.bootstrap.min.css"}}
+  <!-- css "/stylesheets/jquery.dataTables.min.css" -->
+  {{css "/stylesheets/style.css"}}
+  {{#each cssList}}
+ 	 	<link rel='stylesheet' href="{{this}}" />
+  {{/each}}
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<!-- <script src="http://v3.bootcss.com/assets/js/docs.min.js"></script> -->
+
+	<!-- 同上面css的写法。只用需要的页面写js '...'语句，这里为了偷懒，就都写在layout公共布局文件中了-->
+	{{js "//static1.zuiyouxi.com/web/public/js/jquery.js"}}
+	{{js "//static1.zuiyouxi.com/web/public/bootstrap-3.3.7-dist/js/bootstrap.min.js"}}
+	{{js "/javascripts/jquery.dataTables.min.js"}}
+	{{js "/javascripts/dataTables.bootstrap.min.js"}}
+    {{js "/javascripts/public.js"}}
+	{{js "//static1.zuiyouxi.com/web/public/layer/layer.js"}}
+	{{js "/javascripts/search.js"}}
+	{{js "/javascripts/mylib.js"}}
+	{{#each jsList}}
+ 	 	<script src={{this}}></script>
+	{{/each}}
+
+  <!-- 其实小项目是没必要像上面这么写，直接用下面的语句引用css资源就好了。我只是为了示范下handlebars的helper更高级的用法而已。-->
+  <!-- <link rel="stylesheet" type="text/css" href="/stylesheets/style.css"> -->
+  <!--############################################## -->
+
+</head>
+<body>
+  <!-- 公共头部 -->
+	<nav class="navbar navbar-default navbar-static-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/search">巴别图书管理系统</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				{{#each arr}}
+				<ul class="nav navbar-nav">
+					<li class="{{sch}}"><a href="/search">书目检索</a></li>
+					<!-- <li class=""><a href="/search">借还书</a></li> -->
+					<li class="{{lib}}"><a href="/mylib/myborrow">我的图书馆</a></li>
+				</ul>
+				{{/each}}
+				<ul class="nav navbar-nav navbar-right">
+					<input type="hidden" readerId="{{username}}">
+					{{#if username}}
+					<li><a href="/mylib/myborrow">{{username}}</a></li>
+						{{#if isManager}}
+						<li><a href="/admin">后台管理</a></li>
+						{{/if}}
+					<li><a href="/loginOut">退出</a></li>
+					{{else}}
+					<li class="{{log}}"><a href="/login">登录</a></li>
+					{{/if}}
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class='container'>
+		{{#if success_msg}}
+		  <div class="alert alert-success">{{success_msg}}</div>
+		{{/if}}
+		{{#if error_msg}}
+		  <div class="alert alert-danger">{{error_msg}}</div>
+		{{/if}}
+	</div>
+
+  <!-- 内容部分 -->
+  {{{body}}}
+
+</body>
+</html>

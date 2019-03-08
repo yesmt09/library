@@ -1,0 +1,49 @@
+<div class="container">
+<div class="row">
+	<div class="col-lg-2">
+    {{>list-group}}
+	</div>
+	<div class="col-lg-10">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">借阅历史</h4>
+      </div>
+      <div class="panel-body">
+				<!-- <h2 class="sub-header">Section title</h2> -->
+				<div class="table-responsive">
+					<table class="table table-condensed">
+						<thead>
+							<tr>
+								<th>书籍编号</th>
+								<th>书名</th>
+								<th>作者</th>
+								<th>出版社</th>
+								<th>借书时间</th>
+								<th>还书时间</th>
+							</tr>
+						</thead>
+						<tbody>
+							{{#each books}}
+							<tr>
+								<td>{{callNumber}}</td>
+								<td>{{title}}</td>
+								<td>{{author}}</td>
+								<td>{{press}}</td>
+								<td>{{outdate}}</td>
+								{{#compare indate '==' 0}}
+								<td><p class="text-warning">借阅中</p></td>
+								{{else}}
+								<td>{{indate}}</td>
+								{{/compare}}
+								
+							</tr>
+							{{/each}}
+						</tbody>
+					</table>
+				</div>
+      </div>
+    </div>
+	</div>
+</div>
+{{>footer}}
+</div>

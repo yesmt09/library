@@ -1,0 +1,84 @@
+<!-- footer -->
+<div class="footer">
+    <p>©BabelTime Company 2018</p>
+</div>
+<!-- Modal -->
+<div id="notice-tip" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document" style="width: 35%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">巴别书库管理制度</h4>
+            </div>
+            <div class="modal-body">
+                <h4>一、目的:</h4>
+                <ul>
+                    <li>为丰富员工业余生活，提高全员素质，以满足员工的学习需求。</li>
+                </ul>
+                <br />
+                <h4>二、使用范围 </h4>
+                <ul>
+                    <li>只对本公司内部员工开放，不对外开放。</li>
+                </ul>
+                <br />
+                <h4>三、借阅规定</h4>
+                <ol>
+                    <li>图书的借阅</li>
+                    <ul>
+                        <li>借阅人必须登录 https://book.babeltime.com/ 按操作流程进行借阅。</li>
+                        <li>每人同一时间段最多可借阅图书<b><span style="color: red"> 1 </span></b>本，名下有未归还图书将无法借阅其他书籍。</li>
+                        <li>每本图书借阅期限为<b><span style="color: red"> 15 </span></b>天。逾期未归还者，应及时办理续借手续。</li>
+                    </ul>
+                    <li>图书的续借</li>
+                    <ul>
+                        <li>到期续借图书须须自觉办理续借手续。</li>
+                        <li>如该书存在预借记录，无法顺利续借，则需部门助理协调沟通。</li>
+                    </ul>
+                    <li>图书的归还</li>
+                    <ul>
+                        <li>借阅人须自觉将图书按编码归放至图书角原位并自觉网上登记归还日期。</li>
+                    </ul>
+                    <li>图书不转借、不污损、不遗失</li>
+                    <ul>
+                        <li>所借图书不得未经部门助理知情情况下转借，须先归还、再借阅。</li>
+                        <li>所借图书不得批改、圈点、折角、涂写，如有上述情况发生，请按原图书版本购赔。</li>
+                        <li>若所借图书遗失，借阅人须按原图书版本购赔；或抵偿一本领域、价值相似的图书。</li>
+                    </ul>
+                </ol>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="notice-i-know" class="btn btn-default" data-dismiss="modal">知道了 <span id="notice-tip-time"></span></button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="application/javascript">
+    $(function() {
+        if(!getCookie('notice-tip-isshow')) {
+            $('#notice-tip').modal('show');
+            $('#notice-i-know').attr("disabled", true);
+            var g_times = 15;
+            function doWait() {
+                if (g_times > 0) {
+                    $('#notice-tip-time').html('(' + g_times + ')');
+                    g_times = g_times - 1;
+                    window.setTimeout(function (){doWait();}, 1000);
+                } else {
+                    $('#notice-i-know').removeAttr("disabled");
+                    $('#notice-tip-time').html('');
+                }
+            }
+            doWait();
+        }
+        $('#notice-tip').on('hidden.bs.modal', function () {
+            setCookie('notice-tip-isshow',1,24);
+        })
+
+        $('#myAffix').affix({
+            offset: {
+                top: 15
+            }
+        })
+    })
+
+</script>
